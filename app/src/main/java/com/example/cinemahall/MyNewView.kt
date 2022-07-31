@@ -3,46 +3,72 @@ package com.example.cinemahall
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
+import android.net.Uri
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.util.Log
-import android.util.TypedValue
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
-import android.widget.ImageView
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 
 
-class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class MyNewView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
 
     var paintSvg = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.RED
     }
 
-   val  mMyVectorDrawable = VectorDrawableCompat.create(resources, R.drawable.ic_scene, null);
-     var rectF:RectF
-      var path = Path()
+    val  mMyVectorDrawable = VectorDrawableCompat.create(resources, R.drawable.ic_scene, null);
+    var rectF:RectF
+    var path = Path()
     private var mPositionX:Float  = 0f
     private var mPositionY:Float  = 0f
     private var refX:Float  = 0f
     private var refY:Float  = 0f
-    private  var mScaleDetector:ScaleGestureDetector
+  //  private  var mScaleDetector:ScaleGestureDetector
     private var mGestureListener:GestureDetector? = null
-     var  mScaleFactor = 1f
+    var  mScaleFactor = 1f
 
 
 
 
-    private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener(){
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-            mScaleFactor *= detector.scaleFactor
-            mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 3.0f))
-               invalidate()
-            return true
-        }
+    private val scaleGestureDetector by lazy {
+        ScaleGestureDetector(context, object : ScaleGestureDetector.OnScaleGestureListener {
+            var totalScale = 1f
+
+            override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+
+                    val actualPivot = PointF(
+                        (detector.focusX - translationX + pivotX * (totalScale - 1)) / totalScale,
+                        (detector.focusY - translationY + pivotY * (totalScale - 1)) / totalScale,
+                    )
+
+                    translationX -= (pivotX - actualPivot.x) * (totalScale - 1)
+                    translationY -= (pivotY - actualPivot.y) * (totalScale - 1)
+            //    pivotY = point.y
+
+                return true
+            }
+
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                totalScale *= detector.scaleFactor
+                totalScale = totalScale.coerceIn(MIN_SCALE_FACTOR, MAX_SCALE_FACTOR)
+//                player_view.run {
+//                    scale(totalScale)
+//                    getContentViewTranslation().run {
+//                        translationX += x
+//                        translationY += y
+//                    }
+//                }
+                return true
+            }
+
+            override fun onScaleEnd(detector: ScaleGestureDetector) = Unit
+        })
     }
+
+
     private val mCurrentViewport = RectF(x, y, mMyVectorDrawable!!.intrinsicWidth / 2f ,  mMyVectorDrawable.intrinsicHeight / 2f)
 
     private val mContentRect: Rect? = null
@@ -85,25 +111,26 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         }
     }
 
- init {
-     rectF = RectF()
-     mScaleDetector = ScaleGestureDetector(context,ScaleListener())
-     mGestureListener = GestureDetector(context,GestureListener())
+    init {
+        rectF = RectF()
+      //  mScaleDetector = ScaleGestureDetector(context,ScaleListener())
+      //  mGestureListener = GestureDetector(context,GestureListener())
 
-
-
- }
+    }
 
     private fun drawBitMap(canvas: Canvas){
         canvas.save()
-      //  canvas.translate(mPositionX,mPositionY)
-        canvas.scale(mScaleFactor, mScaleFactor)
+        //  canvas.translate(mPositionX,mPositionY)
+        canvas.scale(mScaleFactor,mScaleFactor)
 
-        mMyVectorDrawable?.draw(canvas)
 
-        canvas.drawCircle(100f.toDp() , 100f.toDp(),10f,paintSvg)
-        canvas.drawCircle(100f , 100f,10f,paintSvg)
-        canvas.drawCircle(10f.toDp() , 10f.toDp(),10f,paintSvg)
+
+
+
+            //mMyVectorDrawable?.draw(canvas)
+
+
+        canvas.drawCircle(1006.46f , 1219.84f,10f,paintSvg)
         // 1-ая ложа 3-го яруса
         canvas.drawCircle( 100.535f , 1219.84f,6f,paintSvg)
         canvas.drawCircle(  100.535f, 1186.37f,6f,paintSvg)
@@ -120,15 +147,7 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         canvas.drawCircle(    101.855f, 918.338f,6f,paintSvg)
         canvas.drawCircle(    103.664f, 884.451f,6f,paintSvg)
         canvas.drawCircle(106.691f, 851.601f,6f,paintSvg)
-
-        // Справа (8 - 14 ложи)
-        // 1-ая ложа 3-го яруса
-        canvas.drawCircle(    1806.46f, 1219.84f,6f,paintSvg)
-        canvas.drawCircle(    1806.46f, 1186.37f,6f,paintSvg)
-        canvas.drawCircle(1806.46f, 1152.9f,6f,paintSvg)
-
         canvas.restore()
-
 
 
 
@@ -136,27 +155,53 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        mGestureListener?.onTouchEvent(event)
-                 when(event?.action){
-             MotionEvent.ACTION_DOWN -> {
-                 refX = event.x
-                 refY = event.y
-             }
-             MotionEvent.ACTION_MOVE -> {
-                 val nX = event.x
-                 val nY = event.y
+     //   mScaleDetector.onTouchEvent(event)
+        scaleGestureDetector.onTouchEvent(event)
+     //   mGestureListener?.onTouchEvent(event)
+         var prevX = 0f
+         var prevY = 0f
+         var moveStarted = false
+            if (event == null) return false
 
-                 mPositionX += nX - refX
-                 mPositionY += nY - refY
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    prevX = event.x
+                    prevY = event.y
+                }
 
-                 refX = nX
-                 refY = nY
-                 invalidate()
-             }
-}
-        return true
-    }
+                MotionEvent.ACTION_POINTER_UP -> {
+                    if (event.actionIndex == 0) {
+                        try {
+                            prevX = event.getX(1)
+                            prevY = event.getY(1)
+                        } catch (e: Exception) {
+                        }
+                    }
+                }
+
+                MotionEvent.ACTION_MOVE -> {
+                    if (event.pointerCount > 1) {
+                        prevX = event.x
+                        prevY = event.y
+                        return false
+                    }
+//                    moveStarted = true
+//                    player_view?.run {
+//                        translationX += (event.x - prevX)
+//                        translationY += (event.y - prevY)
+//                    }
+                    prevX = event.x
+                    prevY = event.y
+                }
+
+//                MotionEvent.ACTION_UP -> {
+//                    if (!moveStarted) return false
+//                    reset()
+//                    translateToOriginalRect()
+//                }
+            }
+            return true
+        }
 
 
 
@@ -190,23 +235,14 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         val safeWidth = w - paddingLeft - paddingRight
         val safeHeight = h - paddingTop - paddingBottom
 
-        val newWight = mMyVectorDrawable!!.intrinsicWidth / 2
-        val newHeight = mMyVectorDrawable.intrinsicHeight / 2
+        val wi = width * 1f - paddingLeft - paddingRight
+        val he = height * 1f - - paddingTop - paddingBottom
+        val paddingLeft= (width - wi) / 2
+        val paddingTop = (height - he) / 2
 
-
-
-        val n1 = 100.535.toInt()
-        val n2= 0
-        val n3 =  1806.46.toInt()
-        val n4 = n2 + newHeight / 2
-
-
-        rectF.right =   rectF.left +(mMyVectorDrawable.intrinsicWidth / 2f)
+        rectF.right =   rectF.left +(mMyVectorDrawable!!.intrinsicWidth / 2f)
         rectF.bottom =  rectF.top +   (mMyVectorDrawable.intrinsicHeight / 2f)
-
-        mMyVectorDrawable.setBounds(n1 ,
-            n2 ,   n3 , n4)
-
+        mMyVectorDrawable.setBounds(paddingLeft.toInt() , paddingTop.toInt() ,    measuredWidth   ,   measuredHeight );
 
         Log.d("onSizeChanged",rectF.left.toString())
         Log.d("onSizeChanged",rectF.top.toString())
@@ -242,9 +278,10 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
         setMeasuredDimension(width, height)
     }
-    fun Number.toDp() =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(),
-        resources.displayMetrics).toFloat()
-
-
+    companion object {
+        private const val MAX_SCALE_FACTOR = 5f
+        private const val MIN_SCALE_FACTOR = 1f
+        private const val CORRECT_LOCATION_ANIMATION_DURATION = 300L
+    }
 }
 
