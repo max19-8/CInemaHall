@@ -1,66 +1,59 @@
 package com.example.cinemahall
 
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.Drawable
+import android.graphics.Matrix
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import androidx.annotation.Nullable
+import androidx.appcompat.widget.AppCompatImageView
 
-
-class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr),GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
-
-    var paintSvg = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.RED
-    }
-    private val  mMyVectorDrawable = VectorDrawableCompat.create(resources, R.drawable.ic_scene, null);
-
-
-
+class ZoomClass : AppCompatImageView, View.OnTouchListener,
+    GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
     //shared constructing
     private var mContext: Context? = null
     private var mScaleDetector: ScaleGestureDetector? = null
     private var mGestureDetector: GestureDetector? = null
-    var mMatrix: Matrix? = Matrix()
+    var mMatrix: Matrix? = null
     private var matrixValues: FloatArray? = null
     var mode = NONE
 
-
-    val bitmap = BitmapFactory.decodeResource(resources,R.drawable.scene)
     // Scales
     var mSaveScale = 1f
     var mMinScale = 1f
     var mMaxScale = 4f
 
     // view dimensions
-    var origWidth = width
-    var origHeight = height
-    var viewWidth = mMyVectorDrawable!!.intrinsicWidth
-    var viewHeight = mMyVectorDrawable!!.intrinsicHeight
+    var origWidth = 0f
+    var origHeight = 0f
+    var viewWidth = 0
+    var viewHeight = 0
     private var mLast = PointF()
     private var mStart = PointF()
 
-
-
-     lateinit var r:Drawable
-
-    init {
+    constructor(context: Context) : super(context) {
         sharedConstructing(context)
     }
+
+    constructor(context: Context, @Nullable attrs: AttributeSet?) : super(context, attrs) {
+        sharedConstructing(context)
+    }
+
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context!!, attrs, defStyleAttr)
 
     private fun sharedConstructing(context: Context) {
         super.setClickable(true)
         mContext = context
         mScaleDetector = ScaleGestureDetector(context, ScaleListener())
+        mMatrix = Matrix()
         matrixValues = FloatArray(9)
-       // canvas.setMatrix(matrix)
-//         this.scaleX = 0f
-//         this.scaleY = 0f
+        imageMatrix = mMatrix
+        scaleType = ScaleType.MATRIX
         mGestureDetector = GestureDetector(context, this)
+        setOnTouchListener(this)
     }
 
     private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -82,12 +75,12 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
             }
             if (origWidth * mSaveScale <= viewWidth
                 || origHeight * mSaveScale <= viewHeight) {
-                mMatrix!!.postScale(mScaleFactor, mScaleFactor, viewWidth / 2.toFloat(), viewHeight / 2.toFloat())
+                mMatrix!!.postScale(mScaleFactor, mScaleFactor, viewWidth / 2.toFloat(),
+                    viewHeight / 2.toFloat())
             } else {
                 mMatrix!!.postScale(mScaleFactor, mScaleFactor,
                     detector.focusX, detector.focusY)
             }
-            invalidate()
             fixTranslation()
             return true
         }
@@ -96,7 +89,7 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
     private  fun fitToScreen() {
         mSaveScale = 1f
         val scale: Float
-        val drawable = mMyVectorDrawable
+        val drawable = drawable
         if (drawable == null || drawable.intrinsicWidth == 0 || drawable.intrinsicHeight == 0) return
         val imageWidth = drawable.intrinsicWidth
         val imageHeight = drawable.intrinsicHeight
@@ -105,19 +98,17 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
         scale = scaleX.coerceAtMost(scaleY)
         mMatrix!!.setScale(scale, scale)
 
-        ViewCompat.postInvalidateOnAnimation(this@Hall)
-        invalidate()
-
-//        // Center the image
-//        var redundantYSpace = (viewHeight.toFloat()
-//                - scale * imageHeight.toFloat())
-//        var redundantXSpace = (viewWidth.toFloat()
-//                - scale * imageWidth.toFloat())
-//        redundantYSpace /= 2.toFloat()
-//        redundantXSpace /= 2.toFloat()
-//        matrix!!.postTranslate(redundantXSpace, redundantYSpace)
-//        origWidth = viewWidth - 2 * redundantXSpace
-//        origHeight = viewHeight - 2 * redundantYSpace
+        // Center the image
+        var redundantYSpace = (viewHeight.toFloat()
+                - scale * imageHeight.toFloat())
+        var redundantXSpace = (viewWidth.toFloat()
+                - scale * imageWidth.toFloat())
+        redundantYSpace /= 2.toFloat()
+        redundantXSpace /= 2.toFloat()
+        mMatrix!!.postTranslate(redundantXSpace, redundantYSpace)
+        origWidth = viewWidth - 2 * redundantXSpace
+        origHeight = viewHeight - 2 * redundantYSpace
+        imageMatrix = mMatrix
     }
 
     fun fixTranslation() {
@@ -127,7 +118,6 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
         val fixTransX = getFixTranslation(transX, viewWidth.toFloat(), origWidth * mSaveScale)
         val fixTransY = getFixTranslation(transY, viewHeight.toFloat(), origHeight * mSaveScale)
         if (fixTransX != 0f || fixTransY != 0f) mMatrix!!.postTranslate(fixTransX, fixTransY)
-        invalidate()
     }
 
     private fun getFixTranslation(trans: Float, viewSize: Float, contentSize: Float): Float {
@@ -155,37 +145,21 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
         } else delta
     }
 
-
-    override fun onDraw(canvas: Canvas) {
-      //  canvas.setMatrix(mMatrix)
-
-        mMyVectorDrawable?.draw(canvas)
-    }
-
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        fitToScreen()
+        viewWidth = MeasureSpec.getSize(widthMeasureSpec)
+        viewHeight = MeasureSpec.getSize(heightMeasureSpec)
+        if (mSaveScale == 1f) {
 
+            // Fit to screen.
+            fitToScreen()
+        }
     }
 
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-
-        val aspectRatio = width.toFloat() / bitmap.width.toFloat()
-
-        val newHeight = bitmap.height * aspectRatio
-
-        val n1 = 0f
-        val n2= 0f
-        val n3 =  w
-        val n4 = h
-        mMyVectorDrawable?.setBounds(n1.toInt(),n2.toInt(),n3.toInt(),n4.toInt())
-    }
-
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
+    /*
+        Ontouch
+     */
+    override fun onTouch(view: View?, event: MotionEvent): Boolean {
         mScaleDetector!!.onTouchEvent(event)
         mGestureDetector!!.onTouchEvent(event)
         val currentPoint = PointF(event.x, event.y)
@@ -193,8 +167,7 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
             MotionEvent.ACTION_DOWN -> {
                 mLast.set(currentPoint)
                 mStart.set(mLast)
-                true
-                //mode = DRAG
+                mode = DRAG
             }
             MotionEvent.ACTION_MOVE -> if (mode == DRAG) {
                 val dx = currentPoint.x - mLast.x
@@ -204,14 +177,16 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
                 mMatrix!!.postTranslate(fixTransX, fixTransY)
                 fixTranslation()
                 mLast[currentPoint.x] = currentPoint.y
-                invalidate()
             }
             MotionEvent.ACTION_POINTER_UP -> mode = NONE
         }
-       //  canvas.setMatrix(matrix)
-        return true
+        imageMatrix = mMatrix
+        return false
     }
 
+    /*
+        GestureListener
+     */
     override fun onDown(motionEvent: MotionEvent): Boolean {
         return false
     }
@@ -238,7 +213,7 @@ class Hall @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nu
     }
 
     override fun onDoubleTap(motionEvent: MotionEvent): Boolean {
-       // fitToScreen()
+        fitToScreen()
         return false
     }
 

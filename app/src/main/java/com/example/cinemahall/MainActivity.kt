@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
 //        val image = findViewById<ImageView>(R.id.newIage)
 //        val loader = ImageLoader(this)
 //        val req = ImageRequest.Builder(this)

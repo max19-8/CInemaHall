@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.util.Log
-import android.util.TypedValue
 import android.view.GestureDetector
+import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
 import android.view.View
-import android.widget.ImageView
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 
 
@@ -21,6 +20,8 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         color = Color.RED
     }
 
+    val bitmap = BitmapFactory.decodeResource(resources,R.drawable.scene)
+
    val  mMyVectorDrawable = VectorDrawableCompat.create(resources, R.drawable.ic_scene, null);
      var rectF:RectF
       var path = Path()
@@ -28,140 +29,158 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private var mPositionY:Float  = 0f
     private var refX:Float  = 0f
     private var refY:Float  = 0f
-    private  var mScaleDetector:ScaleGestureDetector
-    private var mGestureListener:GestureDetector? = null
-     var  mScaleFactor = 1f
+
+    var scaleFactorStart = 0f
+    private var mScaleDetector: ScaleGestureDetector? = null
+    private var mGestureDetector: GestureDetector? = null
+
+    private var detector: GestureDetector? = null
+
+    var scaleFactor = 0f
+
+    var mSaveScale = 1f
+    var mMinScale = 1f
+    var mMaxScale = 4f
+
+    var mode = Hall.NONE
 
 
 
 
-    private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener(){
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-            mScaleFactor *= detector.scaleFactor
-            mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 3.0f))
-               invalidate()
-            return true
-        }
-    }
     private val mCurrentViewport = RectF(x, y, mMyVectorDrawable!!.intrinsicWidth / 2f ,  mMyVectorDrawable.intrinsicHeight / 2f)
 
     private val mContentRect: Rect? = null
 
-    private inner class  GestureListener : GestureDetector.SimpleOnGestureListener(){
-        override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-            mContentRect?.apply {
-                // Pixel offset is the offset in screen pixels, while viewport offset is the
-                // offset within the current viewport.
-                val viewportOffsetX = distanceX * mCurrentViewport.width() / width
-                val viewportOffsetY = -distanceY * mCurrentViewport.height() / height
-
-                // Updates the viewport, refreshes the display.
-                setViewportBottomLeft(
-                    mCurrentViewport.left + viewportOffsetX,
-                    mCurrentViewport.bottom + viewportOffsetY
-                )
-            }
-            return true
-        }
-        private fun setViewportBottomLeft(x: Float, y: Float) {
-            /*
-             * Constrains within the scroll range. The scroll range is simply the viewport
-             * extremes (AXIS_X_MAX, etc.) minus the viewport size. For example, if the
-             * extremes were 0 and 10, and the viewport size was 2, the scroll range would
-             * be 0 to 8.
-             */
-            val curWidth: Float = mCurrentViewport.width()
-            val curHeight: Float = mCurrentViewport.height()
-            mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 3.0f))
-
-
-            val newX: Float = Math.max(0f, Math.min(x, 1000f - curWidth))
-            val newY: Float = Math.max(0f + curHeight, Math.min(y, 1000f))
-
-            mCurrentViewport.set(newX, newY - curHeight, newX + curWidth, newY)
-
-            // Invalidates the View to update the display.
-            // ViewCompat.postInvalidateOnAnimation(this)
-        }
-    }
+    private var mScaleFactor = 1f
+    private var scaleGestureDetector: ScaleGestureDetector? = null
+    private var viewSize:Int
+    private var viewSize1:Float
+    private var canvasSize:Int
 
  init {
      rectF = RectF()
-     mScaleDetector = ScaleGestureDetector(context,ScaleListener())
-     mGestureListener = GestureDetector(context,GestureListener())
+    viewSize = width
+     viewSize1 = width.toFloat()
+     canvasSize = viewSize * mScaleFactor.toInt()
 
+     val ca = viewSize1 * mScaleFactor
+     Log.d("INIT", bitmap.width.toString())
+  //   mScaleDetector = ScaleGestureDetector(context,ScaleListener())
+   //  mGestureDetector = GestureDetector(context,GestureListener())
+
+
+
+     scaleGestureDetector =  ScaleGestureDetector(context,  MyScaleGestureListener())
+     detector = GestureDetector(context, MyGestureListener())
 
 
  }
 
-    private fun drawBitMap(canvas: Canvas){
-        canvas.save()
-      //  canvas.translate(mPositionX,mPositionY)
-        canvas.scale(mScaleFactor, mScaleFactor)
+    private inner class MyScaleGestureListener : SimpleOnScaleGestureListener() {
+        //обрабатываем "щипок" пальцами
+        override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
+            val scaleFactor =
+                scaleGestureDetector.scaleFactor //получаем значение зума относительно предыдущего состояния
+            //получаем координаты фокальной точки - точки между пальцами
 
-        mMyVectorDrawable?.draw(canvas)
+             val aspectRatio = width.toFloat() / bitmap.width.toFloat()
 
-        canvas.drawCircle(100f.toDp() , 100f.toDp(),10f,paintSvg)
-        canvas.drawCircle(100f , 100f,10f,paintSvg)
-        canvas.drawCircle(10f.toDp() , 10f.toDp(),10f,paintSvg)
-        // 1-ая ложа 3-го яруса
-        canvas.drawCircle( 100.535f , 1219.84f,6f,paintSvg)
-        canvas.drawCircle(  100.535f, 1186.37f,6f,paintSvg)
-        canvas.drawCircle(  100.535f, 1152.9f,6f,paintSvg)
-        // 2-ая ложа 3-го яруса
-        canvas.drawCircle( 100.535f, 1119.43f,6f,paintSvg)
-        canvas.drawCircle(  100.535f, 1085.96f,6f,paintSvg)
-        canvas.drawCircle( 100.535f, 1052.49f,6f,paintSvg)
-        // 3-ья ложа 3-го яруса
-        canvas.drawCircle(  100.535f, 1019.02f,6f,paintSvg)
-        canvas.drawCircle(     100.535f, 985.548f,6f,paintSvg)
-        canvas.drawCircle(    100.535f, 952.077f,6f,paintSvg)
-        // 4-ая ложа 3-го яруса
-        canvas.drawCircle(    101.855f, 918.338f,6f,paintSvg)
-        canvas.drawCircle(    103.664f, 884.451f,6f,paintSvg)
-        canvas.drawCircle(106.691f, 851.601f,6f,paintSvg)
+             val newHeight = (bitmap.height / 2 * aspectRatio).toInt()
 
-        // Справа (8 - 14 ложи)
-        // 1-ая ложа 3-го яруса
-        canvas.drawCircle(    1806.46f, 1219.84f,6f,paintSvg)
-        canvas.drawCircle(    1806.46f, 1186.37f,6f,paintSvg)
-        canvas.drawCircle(1806.46f, 1152.9f,6f,paintSvg)
+            val focusX = scaleGestureDetector.focusX
+            val focusY = scaleGestureDetector.focusY
+            //следим чтобы канвас не уменьшили меньше исходного размера и не допускаем увеличения больше чем в 2 раза
+            if (mScaleFactor * scaleFactor > 1 && mScaleFactor * scaleFactor < 2) {
+                mScaleFactor *= scaleGestureDetector.scaleFactor
+                canvasSize = (newHeight * mScaleFactor).toInt()//изменяем хранимое в памяти значение размера канваса
+                //используется при расчетах
+                //по умолчанию после зума канвас отскролит в левый верхний угол.
+                //Скролим канвас так, чтобы на экране оставалась
+                //область канваса, над которой был жест зума
+                //Для получения данной формулы достаточно школьных знаний математики (декартовы координаты).
+                var scrollX = ((getScrollX() + focusX) * scaleFactor - focusX).toInt()
+                scrollX = Math.min(Math.max(scrollX, 0), canvasSize - newHeight)
+                var scrollY = ((getScrollY() + focusY) * scaleFactor - focusY).toInt()
+                scrollY = Math.min(Math.max(scrollY, 0), canvasSize  - newHeight)
+                scrollTo(scrollX, scrollY)
+            }
+            //вызываем перерисовку принудительно
+            invalidate()
+            return true
+        }
+    }
+    private  inner class MyGestureListener : SimpleOnGestureListener() {
+        //обрабатываем скролл (перемещение пальца по экрану)
+        override fun onScroll(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            distanceX: Float,
+            distanceY: Float
+        ): Boolean {
+            //не даем канвасу показать края по горизонтали
+            if (scrollX + distanceX < canvasSize - viewSize && scrollX + distanceX > 0) {
+                scrollBy(distanceX.toInt(), 0)
+            }
+            //не даем канвасу показать края по вертикали
+            if (scrollY + distanceY < canvasSize - viewSize && scrollY + distanceY > 0) {
+                scrollBy(0, distanceY.toInt())
+            }
+            invalidate()
+            return true
+        }
 
-        canvas.restore()
+        //обрабатываем одиночный тап
+        override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
+            //получаем координаты ячейки, по которой тапнули
+            val cellX: Int = ((event.x + scrollX) / mScaleFactor).toInt()
+            val cellY: Int = ((event.y + scrollY) / mScaleFactor).toInt()
+            return true
+        }
 
-
-
-
+        //обрабатываем двойной тап
+        override fun onDoubleTapEvent(event: MotionEvent): Boolean {
+            //зумируем канвас к первоначальному виду
+            mScaleFactor = 1f
+            canvasSize = viewSize
+            scrollTo(0, 0) //скролим, чтобы не было видно краев канваса.
+            invalidate() //перерисовываем канвас
+            return true
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        mGestureListener?.onTouchEvent(event)
-                 when(event?.action){
-             MotionEvent.ACTION_DOWN -> {
-                 refX = event.x
-                 refY = event.y
-             }
-             MotionEvent.ACTION_MOVE -> {
-                 val nX = event.x
-                 val nY = event.y
-
-                 mPositionX += nX - refX
-                 mPositionY += nY - refY
-
-                 refX = nX
-                 refY = nY
-                 invalidate()
-             }
-}
-        return true
+        detector?.onTouchEvent(event)
+        scaleGestureDetector!!.onTouchEvent(event)
+        return true;
     }
 
 
 
     override fun onDraw(canvas: Canvas) {
-        drawBitMap(canvas)
+
+        val aspectRatio = width.toFloat() / bitmap.width.toFloat()
+        canvas.save()
+        canvas.scale(mScaleFactor, mScaleFactor);//зумируем канвас
+       mMyVectorDrawable?.draw(canvas)
+        canvas.drawCircle( 100.535f * aspectRatio , 1219.84f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(  100.535f* aspectRatio, 1186.37f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(  100.535f* aspectRatio, 1152.9f* aspectRatio,6f,paintSvg)
+        // 2-ая ложа 3-го яруса
+        canvas.drawCircle( 100.535f* aspectRatio, 1119.43f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(  100.535f* aspectRatio, 1085.96f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle( 100.535f* aspectRatio, 1052.49f* aspectRatio,6f,paintSvg)
+        // 3-ья ложа 3-го яруса
+        canvas.drawCircle(  100.535f* aspectRatio, 1019.02f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(     100.535f* aspectRatio, 985.548f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(    100.535f* aspectRatio, 952.077f* aspectRatio,6f,paintSvg)
+        // 4-ая ложа 3-го яруса
+        canvas.drawCircle(    101.855f* aspectRatio, 918.338f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(    103.664f* aspectRatio, 884.451f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(106.691f* aspectRatio, 851.601f* aspectRatio,6f,paintSvg)
+
+
+        canvas.restore()
     }
 
 
@@ -187,64 +206,62 @@ class HallView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val safeWidth = w - paddingLeft - paddingRight
-        val safeHeight = h - paddingTop - paddingBottom
 
-        val newWight = mMyVectorDrawable!!.intrinsicWidth / 2
-        val newHeight = mMyVectorDrawable.intrinsicHeight / 2
+        val aspectRatio = width.toFloat() / bitmap.width.toFloat()
 
+        val newHeight = bitmap.height * aspectRatio
 
-
-        val n1 = 100.535.toInt()
-        val n2= 0
-        val n3 =  1806.46.toInt()
-        val n4 = n2 + newHeight / 2
+        val n1 = x.toInt()
+        val n2= y.toInt()
+        val n3 =  w.toFloat().toInt()
+        val n4 = n2 + newHeight.toInt()
 
 
-        rectF.right =   rectF.left +(mMyVectorDrawable.intrinsicWidth / 2f)
-        rectF.bottom =  rectF.top +   (mMyVectorDrawable.intrinsicHeight / 2f)
+        mMyVectorDrawable?.setBounds(n1,n2,n3,n4)
 
-        mMyVectorDrawable.setBounds(n1 ,
-            n2 ,   n3 , n4)
+//
+//        rectF.left = n1
+//            rectF.top =  n2
+//        rectF.right =   n3
+//        rectF.bottom =  n4
 
-
-        Log.d("onSizeChanged",rectF.left.toString())
-        Log.d("onSizeChanged",rectF.top.toString())
-        Log.d("onSizeChanged",rectF.right.toString())
-        Log.d("onSizeChanged",safeWidth.toString())
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
-        val requestedWidth = MeasureSpec.getSize(widthMeasureSpec)
-        val requestedWidthMode = MeasureSpec.getMode(widthMeasureSpec)
 
-        val requestedHeight = MeasureSpec.getSize(heightMeasureSpec)
-        val requestedHeightMode = MeasureSpec.getMode(heightMeasureSpec)
 
-        rectF.right =   rectF.left +  (mMyVectorDrawable!!.intrinsicWidth / 2f)
-        rectF.bottom =  rectF.top +   (mMyVectorDrawable.intrinsicHeight / 2f)
 
-        val desiredWidth: Int =  (mMyVectorDrawable.intrinsicWidth / 2)
-        val desiredHeight: Int = (mMyVectorDrawable.intrinsicHeight / 2)
-
-        val width = when (requestedWidthMode) {
-            MeasureSpec.EXACTLY -> requestedWidth
-            MeasureSpec.UNSPECIFIED -> desiredWidth
-            else -> Math.min(requestedWidth, desiredWidth)
-        }
-
-        val height = when (requestedHeightMode) {
-            MeasureSpec.EXACTLY -> requestedHeight
-            MeasureSpec.UNSPECIFIED -> desiredHeight
-            else -> Math.min(requestedHeight, desiredHeight)
-        }
-
-        setMeasuredDimension(width, height)
-    }
-    fun Number.toDp() =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(),
-        resources.displayMetrics).toFloat()
-
+//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+//
+//        val requestedWidth = MeasureSpec.getSize(widthMeasureSpec)
+//        val requestedWidthMode = MeasureSpec.getMode(widthMeasureSpec)
+//
+//        val requestedHeight = MeasureSpec.getSize(heightMeasureSpec)
+//        val requestedHeightMode = MeasureSpec.getMode(heightMeasureSpec)
+//
+//        rectF.right =   rectF.left +  (mMyVectorDrawable!!.intrinsicWidth / 2f)
+//        rectF.bottom =  rectF.top +   (mMyVectorDrawable.intrinsicHeight / 2f)
+//
+//        val desiredWidth: Int =  (mMyVectorDrawable.intrinsicWidth / 2)
+//        val desiredHeight: Int = (mMyVectorDrawable.intrinsicHeight / 2)
+//
+//        val width = when (requestedWidthMode) {
+//            MeasureSpec.EXACTLY -> requestedWidth
+//            MeasureSpec.UNSPECIFIED -> desiredWidth
+//            else -> Math.min(requestedWidth, desiredWidth)
+//        }
+//
+//        val height = when (requestedHeightMode) {
+//            MeasureSpec.EXACTLY -> requestedHeight
+//            MeasureSpec.UNSPECIFIED -> desiredHeight
+//            else -> Math.min(requestedHeight, desiredHeight)
+//        }
+//
+//        setMeasuredDimension(width, height)
+//    }
+//    fun Number.toDp() =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(),
+//        resources.displayMetrics).toFloat()
+//
 
 }
 

@@ -36,9 +36,6 @@ class MyImageView(context: Context?, attrs: AttributeSet?, defStyle: Int) :
 
     init {
         mImage =  VectorDrawableCompat.create(resources, R.drawable.ic_scene, null)
-        mImage!!.setBounds(0, 0, mImage!!.intrinsicWidth, mImage!!.intrinsicHeight)
-        isHorizontalScrollBarEnabled = true
-        isVerticalScrollBarEnabled = true
     }
 
   override  fun onTouchEvent(ev: MotionEvent): Boolean {
@@ -62,6 +59,7 @@ class MyImageView(context: Context?, attrs: AttributeSet?, defStyle: Int) :
                 if (!mScaleDetector.isInProgress) {
                     val dx = x - mLastTouchX
                     val dy = y - mLastTouchY
+                    if (mPosX + dx <= width / 2 && mPosY + dy <= height / 2)
                     mPosX += dx
                     mPosY += dy
                     invalidate()
@@ -92,32 +90,48 @@ class MyImageView(context: Context?, attrs: AttributeSet?, defStyle: Int) :
         return true
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+
+        val aspectRatio = width.toFloat() / mImage?.intrinsicWidth!!.toFloat()
+
+        val newHeight = mImage!!.intrinsicHeight * aspectRatio
+
+
+        val n1 = x.toInt()
+        val n2= y.toInt()
+        val n3 =  w
+        val n4 = n2 + newHeight
+
+        mImage!!.setBounds(n1, n2,n3, n4.toInt())
+
+    }
+
     override  fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+        val aspectRatio = width.toFloat() / mImage?.intrinsicWidth!!.toFloat()
         val pivotX: Float = (mImage!!.intrinsicWidth / 2).toFloat()
         val pivotY: Float = (mImage!!.intrinsicHeight / 2).toFloat()
         canvas.save()
         Log.d("DEBUG", "X: $mPosX Y: $mPosY")
         Log.d("DEBUG", "pivotX: $pivotX pivotY: $pivotY")
-    //    canvas.translate(mPosX, mPosY)
-        canvas.scale(mScaleFactor, mScaleFactor, pivotX, pivotY)
+        canvas.translate(mPosX, mPosY)
+        canvas.scale(mScaleFactor, mScaleFactor, mPosX,mPosY)
         mImage!!.draw(canvas)
         // 1-ая ложа 3-го яруса
-        canvas.drawCircle( 100.535f , 1219.84f,6f,paintSvg)
-        canvas.drawCircle(  100.535f, 1186.37f,6f,paintSvg)
-        canvas.drawCircle(  100.535f, 1152.9f,6f,paintSvg)
+        canvas.drawCircle( 100.535f * aspectRatio , 1219.84f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(  100.535f* aspectRatio, 1186.37f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(  100.535f* aspectRatio, 1152.9f* aspectRatio,6f,paintSvg)
         // 2-ая ложа 3-го яруса
-        canvas.drawCircle( 100.535f, 1119.43f,6f,paintSvg)
-        canvas.drawCircle(  100.535f, 1085.96f,6f,paintSvg)
-        canvas.drawCircle( 100.535f, 1052.49f,6f,paintSvg)
+        canvas.drawCircle( 100.535f* aspectRatio, 1119.43f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(  100.535f* aspectRatio, 1085.96f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle( 100.535f* aspectRatio, 1052.49f* aspectRatio,6f,paintSvg)
         // 3-ья ложа 3-го яруса
-        canvas.drawCircle(  100.535f, 1019.02f,6f,paintSvg)
-        canvas.drawCircle(     100.535f, 985.548f,6f,paintSvg)
-        canvas.drawCircle(    100.535f, 952.077f,6f,paintSvg)
+        canvas.drawCircle(  100.535f* aspectRatio, 1019.02f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(     100.535f* aspectRatio, 985.548f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(    100.535f* aspectRatio, 952.077f* aspectRatio,6f,paintSvg)
         // 4-ая ложа 3-го яруса
-        canvas.drawCircle(    101.855f, 918.338f,6f,paintSvg)
-        canvas.drawCircle(    103.664f, 884.451f,6f,paintSvg)
-        canvas.drawCircle(106.691f, 851.601f,6f,paintSvg)
+        canvas.drawCircle(    101.855f* aspectRatio, 918.338f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(    103.664f* aspectRatio, 884.451f* aspectRatio,6f,paintSvg)
+        canvas.drawCircle(106.691f* aspectRatio, 851.601f* aspectRatio,6f,paintSvg)
         canvas.restore()
     }
 
@@ -126,7 +140,7 @@ class MyImageView(context: Context?, attrs: AttributeSet?, defStyle: Int) :
             mScaleFactor *= detector.scaleFactor
             // Don't let the object get too small or too large.
 
-            mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 3.0f))
+            mScaleFactor = Math.max(1f, Math.min(mScaleFactor, 3.0f))
             invalidate()
             return true
         }
