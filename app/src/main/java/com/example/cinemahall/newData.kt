@@ -1,27 +1,75 @@
-import 'package:mikhailovsky_app/screens/mainhall/presentation/data/PlaceId.dart';
+package com.example.cinemahall
 
-import 'GroupPlace.dart';
-import 'Place.dart';
 
- var allPlaces  = listOf(
-    _benoir,
-    _benoirLodge,
-    _mezzanine,
-    _mezzanineLodge,
-    _firstTier,
-    _firstTierLodge,
-    _secondTier,
-    _secondTierLodge,
-    _thirdTier,
-    _thirdTierLodge,
-    _groundFloor,
-    _royalLodge,
-    _aLodge,
-    _bLodge,
-    _cLodge,
+// 1-ый Ярус (1 - 3 ряды)
+     var  _firstTier  = mutableListOf(
+ // 1-й ярус 1-ый ряд
+ // Слева
+ Place(PlaceId(1, PlaceType.firstTier, 1, 1168302), 536.656f, 591.113f),
+ Place(PlaceId(2, PlaceType.firstTier, 1,1168302), 564.387f, 577.248f),
+ Place(PlaceId(3, PlaceType.firstTier,  1,  1168302), 625.953f, 549.502f),
+ Place(PlaceId(4, PlaceType.firstTier,  1,  1168302), 656.855f, 537.186f),
+ Place(PlaceId(5, PlaceType.firstTier,  1,  1168302), 688.137f, 525.888f),
+ Place(PlaceId(6, PlaceType.firstTier,  1,  1168302), 719.816f, 515.602f),
+ Place(PlaceId(7, PlaceType.firstTier,  1,  1168302), 751.766f, 506.397f),
+ Place(PlaceId(8, PlaceType.firstTier,  1,  1168302), 784.055f, 498.35f),
+ // Справа
+ Place(PlaceId(9 , PlaceType.firstTier,  1,  79352), 1053.33f, 487.94f),
+ Place(PlaceId(10, PlaceType.firstTier,  1,  79352), 1085.56f, 491.984f),
+ Place(PlaceId(11, PlaceType.firstTier,  1,  79352), 1118.49f, 498.186f),
+ Place(PlaceId(12, PlaceType.firstTier,  1,  79352), 1151.23f, 505.917f),
+ Place(PlaceId(13, PlaceType.firstTier,  1,  79352), 1182.1f, 514.422f),
+ Place(PlaceId(14, PlaceType.firstTier,  1,  79352), 1215.09f, 524.735f),
+ Place(PlaceId(15, PlaceType.firstTier,  1,  79352), 1246.16f, 535.607f),
+ Place(PlaceId(16, PlaceType.firstTier,  1,  79352), 1277.54f, 547.733f),
+ Place(PlaceId(18, PlaceType.firstTier,  1,  79352), 1368.74f, 591.113f),
+ Place(PlaceId(17, PlaceType.firstTier,  1,  79352), 1341.01f, 577.248f),
+
+ // 1-й ярус 2-ый ряд
+ // Слева
+ Place(PlaceId(1, PlaceType.firstTier,  2,  1168302), 595.484f, 526.26f),
+ Place(PlaceId(2, PlaceType.firstTier,  2,  1168302), 625.953f, 512.938f),
+ Place(PlaceId(3, PlaceType.firstTier,  2,  1168302), 656.855f, 500.622f),
+ Place(PlaceId(4, PlaceType.firstTier,  2,  1168302), 688.133f, 489.324f),
+ Place(PlaceId(5, PlaceType.firstTier,  2,  1168302), 719.816f, 479.038f),
+ Place(PlaceId(6, PlaceType.firstTier,  2,  1168302), 751.766f, 469.833f),
+ Place(PlaceId(7, PlaceType.firstTier,  2,  1168302), 784.055f, 461.786f),
+ // Справа
+ Place(PlaceId(8 , PlaceType.firstTier,  2,  79352), 1053.33f, 449.12f),
+ Place(PlaceId(9 , PlaceType.firstTier,  2,  79352), 1085.56f, 453.164f),
+ Place(PlaceId(10, PlaceType.firstTier,  2,  79352), 1118.49f, 459.366f),
+ Place(PlaceId(11, PlaceType.firstTier,  2,  79352), 1151.23f, 467.096f),
+ Place(PlaceId(12, PlaceType.firstTier,  2,  79352), 1182.1f, 475.601f),
+ Place(PlaceId(13, PlaceType.firstTier,  2,  79352), 1215.09f, 485.915f),
+ Place(PlaceId(14, PlaceType.firstTier,  2,  79352), 1246.16f, 496.785f),
+ Place(PlaceId(15, PlaceType.firstTier,  2,  79352), 1277.54f, 508.913f),
+ Place(PlaceId(16, PlaceType.firstTier,  2,  79352), 1307.05f, 521.435f),
+
+ // 1-й ярус 3-ый ряд
+ // Слева
+ Place(PlaceId(1, PlaceType.firstTier,  3,  1168302), 565.348f, 504.329f),
+ Place(PlaceId(2, PlaceType.firstTier,  3,  1168302), 595.484f, 489.888f),
+ Place(PlaceId(3, PlaceType.firstTier,  3,  1168302), 625.953f, 476.565f),
+ Place(PlaceId(4, PlaceType.firstTier,  3,  1168302), 656.855f, 464.249f),
+ Place(PlaceId(5, PlaceType.firstTier,  3,  1168302), 688.137f, 452.951f),
+ Place(PlaceId(6, PlaceType.firstTier,  3,  1168302), 719.816f, 442.665f),
+ Place(PlaceId(7, PlaceType.firstTier,  3,  1168302), 751.766f, 433.46f),
+ Place(PlaceId(8, PlaceType.firstTier,  3,  1168302), 784.055f, 425.413f),
+ // Справа
+ Place(PlaceId(9 , PlaceType.firstTier,  3,  79352), 1053.33f, 410.991f),
+ Place(PlaceId(10, PlaceType.firstTier,  3,  79352), 1085.56f, 415.035f),
+ Place(PlaceId(11, PlaceType.firstTier,  3,  79352), 1118.49f, 421.237f),
+ Place(PlaceId(12, PlaceType.firstTier,  3,  79352), 1151.23f, 428.967f),
+ Place(PlaceId(13, PlaceType.firstTier,  3,  79352), 1182.1f, 437.472f),
+ Place(PlaceId(14, PlaceType.firstTier,  3,  79352), 1215.09f, 447.786f),
+ Place(PlaceId(15, PlaceType.firstTier,  3,  79352), 1246.16f, 458.656f),
+ Place(PlaceId(16, PlaceType.firstTier,  3,  79352), 1277.54f, 470.784f),
+ Place(PlaceId(17, PlaceType.firstTier,  3,  79352), 1307.05f, 483.306f),
+ Place(PlaceId(18, PlaceType.firstTier,  3,  79352), 1337.35f, 497.367f),
+ )
 
 // Ложи 1-ого яруса (1 - 14 ложи)
-var  _firstTierLodge() = mutableListOf(
+var  _firstTierLodge = mutableListOf(
 
     // Слева (1 - 7 ложи )
     // 1 ложа 1-го яруса
@@ -86,7 +134,7 @@ var  _firstTierLodge() = mutableListOf(
  )
 
 // 2-ой ярус (1 - 3 ряды)
-var  _secondTier() = mutableListOf(
+var  _secondTier = mutableListOf(
     // 1-ый ряд
     Place(PlaceId(1, PlaceType.secondTier,  1,  54162), 390.405f, 523.617f),
     Place(PlaceId(2, PlaceType.secondTier,  1,  54162), 417.35f, 502.916f),
@@ -107,7 +155,7 @@ var  _secondTier() = mutableListOf(
     Place(PlaceId(17, PlaceType.secondTier,  1,  54162), 898.518f, 346.284f),
     Place(PlaceId(18, PlaceType.secondTier,  1,  54162), 931.673f, 344.873f),
     Place(PlaceId(19, PlaceType.secondTier,  1,  54142), 975.325f, 344.873f),
-    Place(PlaceId(20, PlaceType.secondTier,  1,  54142), 1008.48f, 346.284f),f
+    Place(PlaceId(20, PlaceType.secondTier,  1,  54142), 1008.48f, 346.284f),
     Place(PlaceId(21, PlaceType.secondTier,  1,  54142), 1042.6f, 348.881f),
     Place(PlaceId(22, PlaceType.secondTier,  1,  54142), 1076.6f, 352.557f),
     Place(PlaceId(23, PlaceType.secondTier,  1,  54142), 1110.46f, 357.264f),
@@ -141,7 +189,7 @@ var  _secondTier() = mutableListOf(
     Place(PlaceId(13, PlaceType.secondTier,  2,  54162), 864.966f, 309.663f),
     Place(PlaceId(14, PlaceType.secondTier,  2,  54162), 899.085f, 307.064f),
     Place(PlaceId(15, PlaceType.secondTier,  2,  54162), 932.239f, 305.655f),
-    Place(PlaceId(16, PlaceType.secondTier,  2,  54142), 975.325f, 305.655f),f
+    Place(PlaceId(16, PlaceType.secondTier,  2,  54142), 975.325f, 305.655f),
     Place(PlaceId(17, PlaceType.secondTier,  2,  54142), 1008.48f, 307.064f),
     Place(PlaceId(18, PlaceType.secondTier,  2,  54142), 1042.6f, 309.663f),
     Place(PlaceId(19, PlaceType.secondTier,  2,  54142), 1076.6f, 313.339f),
@@ -191,7 +239,7 @@ var  _secondTier() = mutableListOf(
 )
 
 // Ложи 2-ого яруса (1 - 12 ложи)
-var  _secondTierLodge= mutableListOf(
+var  _secondTierLodge = mutableListOf(
     // Слева (1 - 6 ложи)
     // 1 ложа 2-го яруса
     Place(PlaceId(1, PlaceType.secondTierLodge,  1,  15342), 165.16f, 1186.37f),
@@ -271,7 +319,7 @@ var _thirdTier= mutableListOf(
     Place(PlaceId(21, PlaceType.thirdTier,  1,  54163), 1040.46f, 213.637f),
     Place(PlaceId(22, PlaceType.thirdTier,  1,  54163), 1073.89f, 216.872f),
     Place(PlaceId(23, PlaceType.thirdTier,  1,  54163), 1107.22f, 221.064f),
-    Place(PlaceId(24, PlaceType.thirdTier,  1,  54163), 1140.4f, 226.1f9),
+    Place(PlaceId(24, PlaceType.thirdTier,  1,  54163), 1140.4f, 226.19f),
     Place(PlaceId(25, PlaceType.thirdTier,  1,  54163), 1173.4f, 232.245f),
     Place(PlaceId(26, PlaceType.thirdTier,  1,  54163), 1206.23f, 239.254f),
     Place(PlaceId(27, PlaceType.thirdTier,  1,  54163), 1238.78f, 247.226f),
@@ -426,12 +474,12 @@ var _benoir = mutableListOf(
     Place(PlaceId(21, PlaceType.benoir,  1,  86761), 1257.43f, 821.338f),
     Place(PlaceId(22, PlaceType.benoir,  1,  86761), 1286.31f, 837.109f),
     Place(PlaceId(23, PlaceType.benoir,  1,  86761), 1313.99f, 853.979f),
-    Place(PlaceId(24, PlaceType.benoir,  1,  86761), 1341.89f, 873.18f,
+    Place(PlaceId(24, PlaceType.benoir,  1,  86761), 1341.89f, 873.18f),
 
     // 2-ой ряд
     Place(PlaceId(1, PlaceType.benoir,  2,  86760), 531.219f, 852.749f),
     Place(PlaceId(2, PlaceType.benoir,  2,  86760), 556.77f, 832.947f),
-    Place(PlaceId(3, PlaceType.benoir,  2,  86760), 584.824f, 813.952f),f
+    Place(PlaceId(3, PlaceType.benoir,  2,  86760), 584.824f, 813.952f),
     Place(PlaceId(4, PlaceType.benoir,  2,  86760), 612.613f, 797.281f),
     Place(PlaceId(5, PlaceType.benoir,  2,  86760), 641.602f, 781.717f),
     Place(PlaceId(6, PlaceType.benoir,  2,  86760), 673.594f, 766.354f),
@@ -490,83 +538,82 @@ var _benoir = mutableListOf(
 
 // Ложи Бенуаров (1 - 14 ложи)
 var  _benoirLodge = mutableListOf(
-
     // 1-ая Ложа левого Бенуара // или 1
-    Place(PlaceId(1, PlaceType.benoirLodge,  1,  15349, isGroup: true, count: 2), 458.352f, 1447.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  1,  15349, isGroup: true, count: 2), 458.352f, 1415.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  1,  15349, isGroup: true, count: 2), 433.352f, 1447.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  1,  15349, isGroup: true, count: 2), 433.352f, 1415.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  1,  15349, isGroup = true, count = 2), 458.352f, 1447.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  1,  15349, isGroup = true, count= 2), 458.352f, 1415.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  1,  15349, isGroup =  true, count= 2), 433.352f, 1447.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  1,  15349, isGroup = true, count= 2), 433.352f, 1415.32f),
     // 1-ая Ложа правого Бенуара // или 14
-    Place(PlaceId(1, PlaceType.benoirLodge,  14,  15349, isGroup: true, count: 2), 1448.35f, 1442.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  14,  15349, isGroup: true, count: 2), 1448.35f, 1410.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  14,  15349, isGroup: true, count: 2), 1473.35f, 1442.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  14,  15349, isGroup: true, count: 2), 1473.35f, 1410.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  14,  15349, isGroup= true, count= 2), 1448.35f, 1442.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  14,  15349, isGroup= true, count= 2), 1448.35f, 1410.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  14,  15349, isGroup= true, count= 2), 1473.35f, 1442.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  14,  15349, isGroup= true, count= 2), 1473.35f, 1410.32f),
 
     // 2-ая Ложа левого Бенуара // или 2
-    Place(PlaceId(1, PlaceType.benoirLodge,  2,  15349, isGroup: true, count: 2), 458.352f, 1380.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  2,  15349, isGroup: true, count: 2), 458.352f, 1348.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  2,  15349, isGroup: true, count: 2), 433.352f, 1380.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  2,  15349, isGroup: true, count: 2), 433.352f, 1348.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  2,  15349, isGroup= true, count= 2), 458.352f, 1380.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  2,  15349, isGroup= true, count= 2), 458.352f, 1348.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  2,  15349, isGroup= true, count= 2), 433.352f, 1380.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  2,  15349, isGroup= true, count= 2), 433.352f, 1348.32f),
     // 2-ая Ложа правого Бенуара // или 13
-    Place(PlaceId(1, PlaceType.benoirLodge,  13,  15349, isGroup: true, count: 2), 1448.35f, 1375.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  13,  15349, isGroup: true, count: 2), 1448.35f, 1343.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  13,  15349, isGroup: true, count: 2), 1473.35f, 1375.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  13,  15349, isGroup: true, count: 2), 1473.35f, 1343.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  13,  15349, isGroup= true, count= 2), 1448.35f, 1375.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  13,  15349, isGroup= true, count= 2), 1448.35f, 1343.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  13,  15349, isGroup= true, count= 2), 1473.35f, 1375.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  13,  15349, isGroup= true, count= 2), 1473.35f, 1343.32f),
 
     // 3-ая Ложа левого Бенуара // или 3
-    Place(PlaceId(1, PlaceType.benoirLodge,  3,  15349, isGroup: true, count: 2), 458.352f, 1313.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  3,  15349, isGroup: true, count: 2), 458.352f, 1281.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  3,  15349, isGroup: true, count: 2), 433.352f, 1313.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  3,  15349, isGroup: true, count: 2), 433.352f, 1281.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  3,  15349, isGroup= true, count= 2), 458.352f, 1313.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  3,  15349, isGroup= true, count= 2), 458.352f, 1281.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  3,  15349, isGroup= true, count= 2), 433.352f, 1313.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  3,  15349, isGroup= true, count= 2), 433.352f, 1281.32f),
     // 3-ая Ложа правого Бенуара // или 12
-    Place(PlaceId(1, PlaceType.benoirLodge,  12,  15349, isGroup: true, count: 2), 1448.35f, 1308.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  12,  15349, isGroup: true, count: 2), 1448.35f, 1276.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  12,  15349, isGroup: true, count: 2), 1473.35f, 1308.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  12,  15349, isGroup: true, count: 2), 1473.35f, 1276.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  12,  15349, isGroup= true, count= 2), 1448.35f, 1308.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  12,  15349, isGroup= true, count= 2), 1448.35f, 1276.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  12,  15349, isGroup= true, count= 2), 1473.35f, 1308.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  12,  15349, isGroup= true, count= 2), 1473.35f, 1276.32f),
 
     // 4-ая Ложа левого Бенуара // или 4
-    Place(PlaceId(1, PlaceType.benoirLodge,  4,  15349, isGroup: true, count: 2), 458.352f, 1246.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  4,  15349, isGroup: true, count: 2), 458.352f, 1214.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  4,  15349, isGroup: true, count: 2), 433.352f, 1246.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  4,  15349, isGroup: true, count: 2), 433.352f, 1214.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  4,  15349, isGroup= true, count= 2), 458.352f, 1246.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  4,  15349, isGroup= true, count= 2), 458.352f, 1214.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  4,  15349, isGroup= true, count= 2), 433.352f, 1246.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  4,  15349, isGroup= true, count= 2), 433.352f, 1214.32f),
     // 4-ая Ложа правого Бенуара // или 11
-    Place(PlaceId(1, PlaceType.benoirLodge,  11,  15349, isGroup: true, count: 2), 1448.35f, 1241.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  11,  15349, isGroup: true, count: 2), 1448.35f, 1209.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  11,  15349, isGroup: true, count: 2), 1473.35f, 1241.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  11,  15349, isGroup: true, count: 2), 1473.35f, 1209.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  11,  15349, isGroup= true, count= 2), 1448.35f, 1241.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  11,  15349, isGroup= true, count= 2), 1448.35f, 1209.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  11,  15349, isGroup= true, count= 2), 1473.35f, 1241.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  11,  15349, isGroup= true, count= 2), 1473.35f, 1209.32f),
 
     // 5-ая Ложа правого Бенуара // или 5
-    Place(PlaceId(1, PlaceType.benoirLodge,  5,  15349, isGroup: true, count: 2), 458.352f, 1179.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  5,  15349, isGroup: true, count: 2), 458.352f, 1147.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  5,  15349, isGroup: true, count: 2), 433.352f, 1179.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  5,  15349, isGroup: true, count: 2), 433.352f, 1147.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  5,  15349, isGroup= true, count= 2), 458.352f, 1179.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  5,  15349, isGroup= true, count= 2), 458.352f, 1147.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  5,  15349, isGroup= true, count= 2), 433.352f, 1179.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  5,  15349, isGroup= true, count= 2), 433.352f, 1147.32f),
     // 5-ая Ложа правого Бенуара // или 10
-    Place(PlaceId(1, PlaceType.benoirLodge,  10,  15349, isGroup: true, count: 2), 1448.35f, 1174.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  10,  15349, isGroup: true, count: 2), 1448.35f, 1142.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  10,  15349, isGroup: true, count: 2), 1473.35f, 1174.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  10,  15349, isGroup: true, count: 2), 1473.35f, 1142.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  10,  15349, isGroup= true, count= 2), 1448.35f, 1174.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  10,  15349, isGroup= true, count= 2), 1448.35f, 1142.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  10,  15349, isGroup= true, count= 2), 1473.35f, 1174.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  10,  15349, isGroup= true, count= 2), 1473.35f, 1142.32f),
 
     // 6-ая Ложа левого Бенуара // или 6
-    Place(PlaceId(1, PlaceType.benoirLodge,  6,  15349, isGroup: true, count: 2), 458.352f, 1112.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  6,  15349, isGroup: true, count: 2), 458.352f, 1080.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  6,  15349, isGroup: true, count: 2), 433.352f, 1112.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  6,  15349, isGroup: true, count: 2), 433.352f, 1080.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  6,  15349, isGroup= true, count= 2), 458.352f, 1112.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  6,  15349, isGroup= true, count= 2), 458.352f, 1080.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  6,  15349, isGroup= true, count= 2), 433.352f, 1112.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  6,  15349, isGroup= true, count= 2), 433.352f, 1080.32f),
     // 6-ая Ложа правого Бенуара // или 9
-    Place(PlaceId(1, PlaceType.benoirLodge,  9,  15349, isGroup: true, count: 2), 1448.35f, 1107.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  9,  15349, isGroup: true, count: 2), 1448.35f, 1075.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  9,  15349, isGroup: true, count: 2), 1473.35f, 1107.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  9,  15349, isGroup: true, count: 2), 1473.35f, 1075.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  9,  15349, isGroup= true, count= 2), 1448.35f, 1107.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  9,  15349, isGroup= true, count= 2), 1448.35f, 1075.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  9,  15349, isGroup= true, count= 2), 1473.35f, 1107.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  9,  15349, isGroup= true, count= 2), 1473.35f, 1075.32f),
 
     // 7-ая Ложа левого Бенуара // или 7
-    Place(PlaceId(1, PlaceType.benoirLodge,  7,  15349, isGroup: true, count: 2), 458.352f, 1045.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  7,  15349, isGroup: true, count: 2), 458.352f, 1013.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  7,  15349, isGroup: true, count: 2), 433.352f, 1045.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  7,  15349, isGroup: true, count: 2), 433.352f, 1013.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  7,  15349, isGroup= true, count= 2), 458.352f, 1045.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  7,  15349, isGroup= true, count= 2), 458.352f, 1013.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  7,  15349, isGroup= true, count= 2), 433.352f, 1045.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  7,  15349, isGroup= true, count= 2), 433.352f, 1013.32f),
     // 7-ая Ложа правого Бенуара // или 8
-    Place(PlaceId(1, PlaceType.benoirLodge,  8,  15349, isGroup: true, count: 2), 1448.35f, 1040.32f),
-    Place(PlaceId(2, PlaceType.benoirLodge,  8,  15349, isGroup: true, count: 2), 1448.35f, 1008.32f),
-    Place(PlaceId(3, PlaceType.benoirLodge,  8,  15349, isGroup: true, count: 2), 1473.35f, 1040.32f),
-    Place(PlaceId(4, PlaceType.benoirLodge,  8,  15349, isGroup: true, count: 2), 1473.35f, 1008.32f),
+    Place(PlaceId(1, PlaceType.benoirLodge,  8,  15349, isGroup= true, count= 2), 1448.35f, 1040.32f),
+    Place(PlaceId(2, PlaceType.benoirLodge,  8,  15349, isGroup= true, count= 2), 1448.35f, 1008.32f),
+    Place(PlaceId(3, PlaceType.benoirLodge,  8,  15349, isGroup= true, count= 2), 1473.35f, 1040.32f),
+    Place(PlaceId(4, PlaceType.benoirLodge,  8,  15349, isGroup= true, count= 2), 1473.35f, 1008.32f),
 
 )
 
@@ -596,7 +643,7 @@ var _mezzanine = mutableListOf(
     Place(PlaceId(21, PlaceType.mezzanine,  1,  15339), 1256.09f, 654.141f),
     Place(PlaceId(22, PlaceType.mezzanine,  1,  15339), 1286.16f, 668.392f),
     Place(PlaceId(23, PlaceType.mezzanine,  1,  15339), 1315.8f, 683.67f),
-    Place(PlaceId(24, PlaceType.mezzanine,  1,  15339), 1344.55f, 699.718)f,
+    Place(PlaceId(24, PlaceType.mezzanine,  1,  15339), 1344.55f, 699.718f),
     Place(PlaceId(25, PlaceType.mezzanine,  1,  15339), 1373.4f, 717.239f),
     Place(PlaceId(26, PlaceType.mezzanine,  1,  15339), 1402.89f, 736.18f),
     Place(PlaceId(27, PlaceType.mezzanine,  1,  15339), 1486.36f, 805.358f),
@@ -637,81 +684,81 @@ var _mezzanine = mutableListOf(
 var  _mezzanineLodge = mutableListOf(
     // Бельетаж
     // 1-ая Ложа левого Бельетажа // или 1
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  1,  15346, isGroup: true, count: 4,), 331.352f, 1417.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  1,  15346, isGroup: true, count: 4,), 331.352f, 1390.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  1,  15346, isGroup: true, count: 4,), 304.355f, 1417.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  1,  15346, isGroup: true, count: 4,), 304.355f, 1390.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  1,  15346, isGroup= true, count= 4,), 331.352f, 1417.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  1,  15346, isGroup= true, count= 4,), 331.352f, 1390.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  1,  15346, isGroup= true, count= 4,), 304.355f, 1417.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  1,  15346, isGroup= true, count= 4,), 304.355f, 1390.32f),
     // 1-ая Ложа правого Бельетажа // или 14
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  14,  15346, isGroup: true, count: 4,), 1575.36f, 1417.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  14,  15346, isGroup: true, count: 4,), 1575.36f, 1390.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  14,  15346, isGroup: true, count: 4,), 1602.35f, 1417.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  14,  15346, isGroup: true, count: 4,), 1602.35f, 1390.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  14,  15346, isGroup= true, count= 4,), 1575.36f, 1417.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  14,  15346, isGroup= true, count= 4,), 1575.36f, 1390.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  14,  15346, isGroup= true, count= 4,), 1602.35f, 1417.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  14,  15346, isGroup= true, count= 4,), 1602.35f, 1390.32f),
 
     // 2-ая Ложа левого Бельетажа // или 2
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  2,  15346, isGroup: true, count: 4,), 331.352f, 1350.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  2,  15346, isGroup: true, count: 4,), 331.352f, 1323.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  2,  15346, isGroup: true, count: 4,), 304.355f, 1350.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  2,  15346, isGroup: true, count: 4,), 304.355f, 1323.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  2,  15346, isGroup= true, count= 4,), 331.352f, 1350.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  2,  15346, isGroup= true, count= 4,), 331.352f, 1323.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  2,  15346, isGroup= true, count= 4,), 304.355f, 1350.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  2,  15346, isGroup= true, count= 4,), 304.355f, 1323.32f),
     // 2-ая Ложа правого Бельетажа // или 13
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  13,  15346, isGroup: true, count: 4,), 1575.36f, 1350.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  13,  15346, isGroup: true, count: 4,), 1575.36f, 1323.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  13,  15346, isGroup: true, count: 4,), 1602.35f, 1350.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  13,  15346, isGroup: true, count: 4,), 1602.35f, 1323.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  13,  15346, isGroup= true, count= 4,), 1575.36f, 1350.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  13,  15346, isGroup= true, count= 4,), 1575.36f, 1323.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  13,  15346, isGroup= true, count= 4,), 1602.35f, 1350.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  13,  15346, isGroup= true, count= 4,), 1602.35f, 1323.32f),
 
     // 3-ая Ложа левого Бельетажа // или 3
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  3,  15346, isGroup: true, count: 4,), 331.352f, 1283.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  3,  15346, isGroup: true, count: 4,), 331.352f, 1256.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  3,  15346, isGroup: true, count: 4,), 304.355f, 1283.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  3,  15346, isGroup: true, count: 4,), 304.355f, 1256.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  3,  15346, isGroup= true, count= 4,), 331.352f, 1283.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  3,  15346, isGroup= true, count= 4,), 331.352f, 1256.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  3,  15346, isGroup= true, count= 4,), 304.355f, 1283.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  3,  15346, isGroup= true, count= 4,), 304.355f, 1256.32f),
     // 3-ая Ложа правого Бельетажа // или 12
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  12,  15346, isGroup: true, count: 4,), 1575.36f, 1283.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  12,  15346, isGroup: true, count: 4,), 1575.36f, 1256.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  12,  15346, isGroup: true, count: 4,), 1602.35f, 1283.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  12,  15346, isGroup: true, count: 4,), 1602.35f, 1256.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  12,  15346, isGroup= true, count= 4,), 1575.36f, 1283.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  12,  15346, isGroup= true, count= 4,), 1575.36f, 1256.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  12,  15346, isGroup= true, count= 4,), 1602.35f, 1283.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  12,  15346, isGroup= true, count= 4,), 1602.35f, 1256.32f),
 
     // 4-ая Ложа левого Бельетажа // или 4
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  4,  15346, isGroup: true, count: 4,), 331.352f, 1216.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  4,  15346, isGroup: true, count: 4,), 331.352f, 1189.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  4,  15346, isGroup: true, count: 4,), 304.355f, 1216.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  4,  15346, isGroup: true, count: 4,), 304.355f, 1189.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  4,  15346, isGroup= true, count= 4,), 331.352f, 1216.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  4,  15346, isGroup= true, count= 4,), 331.352f, 1189.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  4,  15346, isGroup= true, count= 4,), 304.355f, 1216.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  4,  15346, isGroup= true, count= 4,), 304.355f, 1189.32f),
     // 4-ая Ложа правого Бельетажа // или 11
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  11,  15346, isGroup: true, count: 4,), 1575.36f, 1216.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  11,  15346, isGroup: true, count: 4,), 1575.36f, 1189.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  11,  15346, isGroup: true, count: 4,), 1602.35f, 1216.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  11,  15346, isGroup: true, count: 4,), 1602.35f, 1189.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  11,  15346, isGroup= true, count= 4,), 1575.36f, 1216.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  11,  15346, isGroup= true, count= 4,), 1575.36f, 1189.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  11,  15346, isGroup= true, count= 4,), 1602.35f, 1216.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  11,  15346, isGroup= true, count= 4,), 1602.35f, 1189.32f),
 
     // 5-ая Ложа левого Бельетажа // или 5
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  5,  15346, isGroup: true, count: 4,), 331.352f, 1149.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  5,  15346, isGroup: true, count: 4,), 331.352f, 1122.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  5,  15346, isGroup: true, count: 4,), 304.355f, 1149.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  5,  15346, isGroup: true, count: 4,), 304.355f, 1122.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  5,  15346, isGroup= true, count= 4,), 331.352f, 1149.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  5,  15346, isGroup= true, count= 4,), 331.352f, 1122.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  5,  15346, isGroup= true, count= 4,), 304.355f, 1149.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  5,  15346, isGroup= true, count= 4,), 304.355f, 1122.32f),
     // 5-ая Ложа левого Бельетажа // или 10
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  10,  15346, isGroup: true, count: 4,), 1602.35f, 1149.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  10,  15346, isGroup: true, count: 4,), 1602.35f, 1122.32f),
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  10,  15346, isGroup: true, count: 4,), 1575.36f, 1149.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  10,  15346, isGroup: true, count: 4,), 1575.36f, 1122.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  10,  15346, isGroup= true, count= 4,), 1602.35f, 1149.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  10,  15346, isGroup= true, count= 4,), 1602.35f, 1122.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  10,  15346, isGroup= true, count= 4,), 1575.36f, 1149.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  10,  15346, isGroup= true, count= 4,), 1575.36f, 1122.32f),
 
     // 6-ая Ложа левого Бельетажа // или 6
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  6,  15346, isGroup: true, count: 4,), 331.352f, 1082.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  6,  15346, isGroup: true, count: 4,), 331.352f, 1055.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  6,  15346, isGroup: true, count: 4,), 304.355f, 1082.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  6,  15346, isGroup: true, count: 4,), 304.355f, 1055.32f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  6,  15346, isGroup= true, count= 4,), 331.352f, 1082.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  6,  15346, isGroup= true, count= 4,), 331.352f, 1055.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  6,  15346, isGroup= true, count= 4,), 304.355f, 1082.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  6,  15346, isGroup= true, count= 4,), 304.355f, 1055.32f),
     // 6-ая Ложа правого Бельетажа // или 9
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  9,  15346, isGroup: true, count: 4,), 1575.36f, 1082.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  9,  15346, isGroup: true, count: 4,), 1575.36f, 1055.32f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  9,  15346, isGroup: true, count: 4,), 1602.35f, 1082.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  9,  15346, isGroup: true, count: 4,), 1602.35f, 1055.32f),
-f
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  9,  15346, isGroup= true, count= 4,), 1575.36f, 1082.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  9,  15346, isGroup= true, count= 4,), 1575.36f, 1055.32f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  9,  15346, isGroup= true, count= 4,), 1602.35f, 1082.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  9,  15346, isGroup= true, count= 4,), 1602.35f, 1055.32f),
+
     // 7-ая Ложа левого Бельетажа // или 7
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  7,  15346, isGroup: true, count: 4,), 331.352f, 1015.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  7,  15346, isGroup: true, count: 4,), 331.352f, 988.323f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  7,  15346, isGroup: true, count: 4,), 304.355f, 1015.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  7,  15346, isGroup: true, count: 4,), 304.355f, 988.323f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  7,  15346, isGroup= true, count= 4,), 331.352f, 1015.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  7,  15346, isGroup= true, count= 4,), 331.352f, 988.323f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  7,  15346, isGroup= true, count= 4,), 304.355f, 1015.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  7,  15346, isGroup= true, count= 4,), 304.355f, 988.323f),
     // 7-ая Ложа правого Бельетажа // или 8
-    Place(PlaceId(1, PlaceType.mezzanineLodge,  8,  15346, isGroup: true, count: 4,), 1575.36f, 1015.32f),
-    Place(PlaceId(2, PlaceType.mezzanineLodge,  8,  15346, isGroup: true, count: 4,), 1575.36f, 988.323f),
-    Place(PlaceId(3, PlaceType.mezzanineLodge,  8,  15346, isGroup: true, count: 4,), 1602.35f, 1015.32f),
-    Place(PlaceId(4, PlaceType.mezzanineLodge,  8,  15346, isGroup: true, count: 4,), 1602.35f, 988.323f),
+    Place(PlaceId(1, PlaceType.mezzanineLodge,  8,  15346, isGroup= true, count= 4,), 1575.36f, 1015.32f),
+    Place(PlaceId(2, PlaceType.mezzanineLodge,  8,  15346, isGroup= true, count= 4,), 1575.36f, 988.323f),
+    Place(PlaceId(3, PlaceType.mezzanineLodge,  8,  15346, isGroup= true, count= 4,), 1602.35f, 1015.32f),
+    Place(PlaceId(4, PlaceType.mezzanineLodge,  8,  15346, isGroup= true, count= 4,), 1602.35f, 988.323f),
 )
 // Партер (1 - 14 ряды)
 var  _groundFloor = mutableListOf(
@@ -998,7 +1045,7 @@ var  _groundFloor = mutableListOf(
     Place(PlaceId(10, PlaceType.groundFloor,  13,  54070), 1014.96f, 913.029f),
     Place(PlaceId(11, PlaceType.groundFloor,  13,  54068), 1048.41f, 913.029f),
     Place(PlaceId(12, PlaceType.groundFloor,  13,  54068), 1081.85f, 913.029f),
-    Place(PlaceId(13, PlaceType.groundFloor,  13,  54068), 1115.2f9, 913.029f),
+    Place(PlaceId(13, PlaceType.groundFloor,  13,  54068), 1115.29f, 913.029f),
     Place(PlaceId(14, PlaceType.groundFloor,  13,  54068), 1148.73f, 913.029f),
     Place(PlaceId(15, PlaceType.groundFloor,  13,  54068), 1182.18f, 913.029f),
 
@@ -1016,63 +1063,62 @@ var  _groundFloor = mutableListOf(
 // Царская ложа
 var  _royalLodge = mutableListOf(
 
-    Place(PlaceId(1, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 903.188f, 589.48f),
-    Place(PlaceId(2, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 936.629f, 589.48f),
-    Place(PlaceId(3, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 970.074f, 589.48f),
-    Place(PlaceId(4, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 1003.52f, 589.48f),
-    Place(PlaceId(5, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 903.188f, 556.01f),
-    Place(PlaceId(6, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 936.629f, 556.01f),
-    Place(PlaceId(7, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 970.074f, 556.01f),
-    Place(PlaceId(8, PlaceType.royalLodge,  1238897,  0, isGroup: true, count: 8,), 1003.52f, 556.01f),
+    Place(PlaceId(1, PlaceType.royalLodge,  1238897,  0, isGroup=true, count= 8,), 903.188f, 589.48f),
+    Place(PlaceId(2, PlaceType.royalLodge,  1238897,  0, isGroup= true, count = 8,), 936.629f, 589.48f),
+    Place(PlaceId(3, PlaceType.royalLodge,  1238897,  0, isGroup= true, count= 8,), 970.074f, 589.48f),
+    Place(PlaceId(4, PlaceType.royalLodge,  1238897,  0, isGroup= true, count= 8,), 1003.52f, 589.48f),
+    Place(PlaceId(5, PlaceType.royalLodge,  1238897,  0, isGroup= true, count= 8,), 903.188f, 556.01f),
+    Place(PlaceId(6, PlaceType.royalLodge,  1238897,  0, isGroup= true, count= 8,), 936.629f, 556.01f),
+    Place(PlaceId(7, PlaceType.royalLodge,  1238897,  0, isGroup= true, count= 8,), 970.074f, 556.01f),
+    Place(PlaceId(8, PlaceType.royalLodge,  1238897,  0, isGroup= true, count= 8,), 1003.52f, 556.01f),
 )
 
 // Ложа А
 var  _aLodge = mutableListOf(
-  return [
-    Place(PlaceId(1, PlaceType.aLodge,  1,  15351, isGroup: true, count: 2,), 462.844f, 1599.18f),
-    Place(PlaceId(2, PlaceType.aLodge,  2,  15351, isGroup: true, count: 2,), 462.844f, 1565.71f),
-    Place(PlaceId(3, PlaceType.aLodge,  3,  15351, isGroup: true, count: 2,), 462.844f, 1532.23f),
-    Place(PlaceId(4, PlaceType.aLodge,  4,  15351, isGroup: true, count: 2,), 462.844f, 1498.76f),
-    Place(PlaceId(5, PlaceType.aLodge,  1,  15351, isGroup: true, count: 2,), 429.398f, 1599.18f),
-    Place(PlaceId(6, PlaceType.aLodge,  2,  15351, isGroup: true, count: 2,), 429.398f, 1565.71f),
-    Place(PlaceId(7, PlaceType.aLodge,  3,  15351, isGroup: true, count: 2,), 429.398f, 1532.23f),
-    Place(PlaceId(8, PlaceType.aLodge,  4,  15351, isGroup: true, count: 2,), 429.398f, 1498.76f),
+    Place(PlaceId(1, PlaceType.aLodge,  1,  15351, isGroup = true, count = 2,), 462.844f, 1599.18f),
+    Place(PlaceId(2, PlaceType.aLodge,  2,  15351, isGroup= true, count= 2,), 462.844f, 1565.71f),
+    Place(PlaceId(3, PlaceType.aLodge,  3,  15351, isGroup= true, count= 2,), 462.844f, 1532.23f),
+    Place(PlaceId(4, PlaceType.aLodge,  4,  15351, isGroup= true, count= 2,), 462.844f, 1498.76f),
+    Place(PlaceId(5, PlaceType.aLodge,  1,  15351, isGroup= true, count= 2,), 429.398f, 1599.18f),
+    Place(PlaceId(6, PlaceType.aLodge,  2,  15351, isGroup= true, count= 2,), 429.398f, 1565.71f),
+    Place(PlaceId(7, PlaceType.aLodge,  3,  15351, isGroup= true, count= 2,), 429.398f, 1532.23f),
+    Place(PlaceId(8, PlaceType.aLodge,  4,  15351, isGroup= true, count= 2,), 429.398f, 1498.76f),
 )
 
 // Ложа Б
 var _bLodge = mutableListOf(
-    Place(PlaceId(1, PlaceType.bLodge,  1,  165862, isGroup: true, count: 2,), 1444.16f, 1599.18f),
-    Place(PlaceId(2, PlaceType.bLodge,  2,  165862, isGroup: true, count: 2,), 1444.16f, 1565.71f),
-    Place(PlaceId(3, PlaceType.bLodge,  3,  165862, isGroup: true, count: 2,), 1444.16f, 1532.23f),
-    Place(PlaceId(4, PlaceType.bLodge,  4,  165862, isGroup: true, count: 2,), 1444.16f, 1498.76f),
-    Place(PlaceId(5, PlaceType.bLodge,  1,  165862, isGroup: true, count: 2,), 1477.61f, 1599.18f),
-    Place(PlaceId(6, PlaceType.bLodge,  2,  165862, isGroup: true, count: 2,), 1477.61f, 1565.71f),
-    Place(PlaceId(7, PlaceType.bLodge,  3,  165862, isGroup: true, count: 2,), 1477.61f, 1532.23f),
-    Place(PlaceId(8, PlaceType.bLodge,  4,  165862, isGroup: true, count: 2,), 1477.61f, 1498.76f),
+    Place(PlaceId(1, PlaceType.bLodge,  1,  165862, isGroup= true, count= 2,), 1444.16f, 1599.18f),
+    Place(PlaceId(2, PlaceType.bLodge,  2,  165862, isGroup= true, count= 2,), 1444.16f, 1565.71f),
+    Place(PlaceId(3, PlaceType.bLodge,  3,  165862, isGroup= true, count= 2,), 1444.16f, 1532.23f),
+    Place(PlaceId(4, PlaceType.bLodge,  4,  165862, isGroup= true, count= 2,), 1444.16f, 1498.76f),
+    Place(PlaceId(5, PlaceType.bLodge,  1,  165862, isGroup= true, count= 2,), 1477.61f, 1599.18f),
+    Place(PlaceId(6, PlaceType.bLodge,  2,  165862, isGroup= true, count= 2,), 1477.61f, 1565.71f),
+    Place(PlaceId(7, PlaceType.bLodge,  3,  165862, isGroup= true, count= 2,), 1477.61f, 1532.23f),
+    Place(PlaceId(8, PlaceType.bLodge,  4,  165862, isGroup= true, count= 2,), 1477.61f, 1498.76f),
 )
 // Ложа C
 var _cLodge = mutableListOf(
-    Place(PlaceId(1, PlaceType.cLodge,  1,  618077, isGroup: true, count: 2,), 1571.91f, 1540.21f),
-    Place(PlaceId(2, PlaceType.cLodge,  2,  618077, isGroup: true, count: 2,), 1571.91f, 1506.74f),
-    Place(PlaceId(3, PlaceType.cLodge,  3,  618077, isGroup: true, count: 2,), 1571.91f, 1473.27f),
-    Place(PlaceId(4, PlaceType.cLodge,  1,  618077, isGroup: true, count: 2,), 1605.36f, 1540.21f),
-    Place(PlaceId(5, PlaceType.cLodge,  2,  618077, isGroup: true, count: 2,), 1605.36f, 1506.74f),
-    Place(PlaceId(6, PlaceType.cLodge,  3,  618077, isGroup: true, count: 2,), 1605.36f, 1473.27f),
+    Place(PlaceId(1, PlaceType.cLodge,  1,  618077, isGroup= true, count= 2,), 1571.91f, 1540.21f),
+    Place(PlaceId(2, PlaceType.cLodge,  2,  618077, isGroup= true, count= 2,), 1571.91f, 1506.74f),
+    Place(PlaceId(3, PlaceType.cLodge,  3,  618077, isGroup= true, count= 2,), 1571.91f, 1473.27f),
+    Place(PlaceId(4, PlaceType.cLodge,  1,  618077, isGroup= true, count= 2,), 1605.36f, 1540.21f),
+    Place(PlaceId(5, PlaceType.cLodge,  2,  618077, isGroup= true, count= 2,), 1605.36f, 1506.74f),
+    Place(PlaceId(6, PlaceType.cLodge,  3,  618077, isGroup= true, count= 2,), 1605.36f, 1473.27f),
 )
 
-var dataGroups() = mutableListOf(
-    GroupPlace(0, 291.102, 1310.07, 53.5, 53.5),
-    GroupPlace(0, 291.102, 1243.07, 53.5, 53.5),
-    GroupPlace(0, 291.102, 1377.07, 53.5, 53.5),
-    GroupPlace(0, 291.102, 1042.07, 53.5, 53.5),
-    GroupPlace(0, 291.102, 975.073, 53.5, 53.5),
-    GroupPlace(0, 291.102, 1176.07, 53.5, 53.5),
-    GroupPlace(0, 291.102, 1109.07, 53.5, 53.5),
-    GroupPlace(0, 1562.1, 1310.07, 53.5, 53.5),
-    GroupPlace(0, 1562.1, 1243.07, 53.5, 53.5),
-    GroupPlace(0, 1562.1, 1377.07, 53.5, 53.5),
-    GroupPlace(0, 1562.1, 1042.07, 53.5, 53.5),
-    GroupPlace(0, 1562.1, 975.073, 53.5, 53.5),
-    GroupPlace(0, 1562.1, 1176.07, 53.5, 53.5),
-    GroupPlace(0, 1562.1, 1109.07, 53.5, 53.5),
-)
+//var dataGroups = mutableListOf(
+//    GroupPlace(0, 291.102, 1310.07, 53.5, 53.5),
+//    GroupPlace(0, 291.102, 1243.07, 53.5, 53.5),
+//    GroupPlace(0, 291.102, 1377.07, 53.5, 53.5),
+//    GroupPlace(0, 291.102, 1042.07, 53.5, 53.5),
+//    GroupPlace(0, 291.102, 975.073, 53.5, 53.5),
+//    GroupPlace(0, 291.102, 1176.07, 53.5, 53.5),
+//    GroupPlace(0, 291.102, 1109.07, 53.5, 53.5),
+//    GroupPlace(0, 1562.1, 1310.07, 53.5, 53.5),
+//    GroupPlace(0, 1562.1, 1243.07, 53.5, 53.5),
+//    GroupPlace(0, 1562.1, 1377.07, 53.5, 53.5),
+//    GroupPlace(0, 1562.1, 1042.07, 53.5, 53.5),
+//    GroupPlace(0, 1562.1, 975.073, 53.5, 53.5),
+//    GroupPlace(0, 1562.1, 1176.07, 53.5, 53.5),
+//    GroupPlace(0, 1562.1, 1109.07, 53.5, 53.5),
+//)

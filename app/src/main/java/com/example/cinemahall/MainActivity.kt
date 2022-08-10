@@ -1,63 +1,56 @@
 package com.example.cinemahall
 
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import coil.ImageLoader
-import coil.imageLoader
-import coil.request.ImageRequest
-import coil.request.SuccessResult
-import coil.transform.CircleCropTransformation
-import com.bumptech.glide.Glide
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import android.util.Log
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val allPlaces  = listOf(
+            _benoir,
+            _benoirLodge,
+            _mezzanine,
+            _mezzanineLodge,
+            _firstTier,
+            _firstTierLodge,
+            _secondTier,
+            _secondTierLodge,
+            _thirdTier,
+            _thirdTierLodge,
+            _groundFloor,
+            _royalLodge,
+            _aLodge,
+            _bLodge,
+            _cLodge,
+        )
 
-//        val image = findViewById<ImageView>(R.id.newIage)
-//        val loader = ImageLoader(this)
-//        val req = ImageRequest.Builder(this)
-//            .data(R.drawable.ic_scene) // demo link
-//            .target { result ->
-//                val bitmap = (result as BitmapDrawable).bitmap
-//                image.setImageBitmap(bitmap)
-//            }
-//            . transformations(CircleCropTransformation())
-//            .build()
-//
-//        val disposable = loader.enqueue(req)
+        val hall = findViewById<HallView>(R.id.hall)
+        hall.cinemaHallMatrix = allPlaces
 
-//     GlobalScope.launch{
-//            val loader = ImageLoader(this@MainActivity)
-//            val request = ImageRequest.Builder(this@MainActivity)
-//                .data(R.drawable.ic_scene)
-//                .allowHardware(false) // Disable hardware bitmaps.
-//                .build()
-//
-//            val result = (loader.execute(request) as SuccessResult).drawable
-//            val bitmap = (result as BitmapDrawable).bitmap
-//         runOnUiThread {
-//             image.setImageBitmap(bitmap)
-//         }
-//
-//        }
-
-
-
-
-
-
-      //  image.setImageBitmap(req)
-
-
-
-
-
+        val onPlaceClick =  object:OnPlaceClick{
+           override fun click(x: Float, y: Float, aspectRatio: Float, heightDifference: Float,placeRadius:Float) {
+               allPlaces.forEach { list ->
+                   list.forEach {
+                       if (Math.abs(it.x * aspectRatio - x) < placeRadius && Math.abs(it.y* aspectRatio + heightDifference  - y) <  placeRadius) {
+                           it.id?.placeType = PlaceType.other
+                           Log.d("CHECK","${it.x* aspectRatio } ${it.y* aspectRatio }")
+                           Log.d("CHECK","$x $y")
+                           Log.d("CHECK","${Math.abs(it.x* aspectRatio  - x) <  placeRadius}")
+                           Log.d("CHECK","${Math.abs(it.y* aspectRatio  - y) <  placeRadius}")
+                           Log.d("CHECK","${(Math.abs(it.x* aspectRatio - x) <  placeRadius && Math.abs(it.y* aspectRatio  - y) <  placeRadius)}")
+                       }
+                   }
+               }
+           }
+       }
+        hall.setOnClick(onPlaceClick)
     }
+}
+
+interface OnPlaceClick{
+    fun click(x:Float,y:Float,aspectRatio:Float, heightDifference:Float,placeRadius:Float)
 }
